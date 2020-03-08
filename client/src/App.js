@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+import withStates from "./components/hoc/withStates"
 import './App.css'
 import Navbar from "./components/navbar/Navbar"
 import Home from "./components/pages/Home"
@@ -9,17 +10,15 @@ import About from "./components/pages/About"
 function App() {
     return (
         <Router>
-            <Fragment>
-                <Navbar />
-                <div className="container">
-                    <Switch>
-                        <Route exact path='/' component={Home} />
-                        <Route exact path='/about' component={About} />
-                    </Switch>
-                </div>
-            </Fragment>
+            <Navbar />
+            <div className="container">
+                <Switch>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/about' component={About} />
+                </Switch>
+            </div>
         </Router>
     )
 }
 
-export default App
+export default withStates(App)
