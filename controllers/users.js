@@ -16,7 +16,7 @@ exports.register = asyncHandler(async (req, res, next) => {
 
     let user = await Users.findOne({ email })
     if (user) {
-        return next(new ErrorResponse(`Пользователь с email ${email} уже существует`, 400))
+        return next(new ErrorResponse(`Пользователь с email ${email} уже существует`, 400, 5))
     }
 
     user = new Users({ name, email, password })
@@ -181,8 +181,6 @@ exports.resetPassword = asyncHandler(async(req, res, next) => {
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() }
     })
-
-    console.log(user)
 
     if (!user) {
         return next(new ErrorResponse('Invalid token', 400))

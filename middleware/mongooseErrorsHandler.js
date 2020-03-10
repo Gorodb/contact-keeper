@@ -17,13 +17,13 @@ const errorHandler = (err, req, res, next) => {
             } else {
                 message = `Resource '${JSON.stringify(err.value)}' not found in path '${err.path}'`
             }
-            error = new ErrorResponse(message, 404)
+            error = new ErrorResponse(message, 404, 4)
         }
 
         // mongoose duplicates key
         if (err.code === 11000) {
             const message = `Duplicate field entered`
-            error = new ErrorResponse(message, 400)
+            error = new ErrorResponse(message, 400, 41)
         }
 
         // Mongoose validation error
@@ -37,19 +37,20 @@ const errorHandler = (err, req, res, next) => {
             } else {
                 message = properties.message // `${properties.path} '${properties.value}' should be one of: ${properties.enumValues}`
             }
-            console.log(message.red)
-            error = new ErrorResponse(message, 400)
+            error = new ErrorResponse(message, 400, 41)
         }
 
         res.status(error.statusCode || 500).json({
             success: false,
-            error: error.message || 'Internal server error'
+            error: error.message || 'Internal server error',
+            code: error.code
         })
     } catch (err) {
         console.log(err.toString().red)
         res.status(error.statusCode || 500).json({
             success: false,
-            error: error.message || 'Internal server error'
+            error: error.message || 'Internal server error',
+            code: error.code
         })
     }
 }
