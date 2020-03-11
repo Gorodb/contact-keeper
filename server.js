@@ -49,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/api/users', require('./routes/users'))
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/contacts', require('./routes/contacts'))
+app.use('/api/secret', require('./routes/clearDb'))
 
 app.use(errorHandler)
 

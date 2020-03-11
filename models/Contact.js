@@ -47,4 +47,9 @@ ContactSchema.plugin(autoIncrement.plugin, {
     startAt: 1
 })
 
+ContactSchema.pre('save', async function (next) {
+    console.log('pre saving data')
+    next()
+})
+
 module.exports = mongoose.model('Contacts', ContactSchema)

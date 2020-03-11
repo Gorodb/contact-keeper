@@ -1,10 +1,26 @@
-import React, {useState} from "react"
+import React, {useContext, useState, useEffect} from "react"
+import authContext from "../../context/auth/authContext"
+import alertContext from "../../context/alert/alertContext"
 
-const Login = () => {
+const Login = (props) => {
+    const { setAlert } = useContext(alertContext)
+    const { loginUser, error, errorCode, clearErrors, isAuthenticated } = useContext(authContext)
+
     const [user, setUser] = useState({
         email: '',
         password: ''
     })
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            props.history.push('/')
+        }
+
+        if (errorCode > 0) {
+            setAlert(error, 'danger')
+            clearErrors()
+        }
+    }, [error, isAuthenticated, props.history])
 
     const { email, password } = user
 
@@ -12,7 +28,11 @@ const Login = () => {
 
     const onSubmit = e => {
         e.preventDefault()
-        console.log('Login submit')
+        if (email === '' || password === '') {
+            setAlert('Необходимо заполнить все поля', 'danger')
+        } else {
+            loginUser({ email, password })
+        }
     }
 
     return (

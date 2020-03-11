@@ -6,7 +6,19 @@ class AuthService extends ApiService {
     }
 
     static authUser (user) {
-        return this._postRequest(`/api/auth`, user)
+        return this._postRequest(`/api/auth/login`, user)
+    }
+
+    static logoutUser () {
+        return this._postRequest(`/api/auth/logout`)
+    }
+
+    static getUser () {
+        return this._getRequest(`/api/auth/me`)
+    }
+
+    static setToken (token) {
+        this._setAuthToken(token)
     }
 }
 

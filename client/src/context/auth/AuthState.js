@@ -27,44 +27,69 @@ const AuthState = props => {
     const [state, dispatch] = useReducer(authReducer, initialState)
 
     // Load user
-    const loadUser = () => {
-        dispatch({
-            type: USER_LOADED
-        })
+    const loadUser = async () => {
+        if (localStorage.token) {
+            AuthService.setToken(localStorage.token)
+            const { data: { success, data = '', error = '', code = 0 } } = await AuthService.getUser()
+
+            success
+                ? dispatch({
+                    type: USER_LOADED,
+                    payload: data
+                })
+                : dispatch({
+                    type: AUTH_ERROR,
+                    payload: { error: error, errorCode: code }
+                })
+        } else {
+            dispatch({
+                type: LOGOUT
+            })
+        }
     }
 
     // Register user
     const register = async user => {
-        const { data } = await AuthService.regUser(user)
+        const { data: { success, token = '', error = '', code = 0 } } = await AuthService.regUser(user)
 
-        data.success
-            ? dispatch({
+        if (success) {
+            localStorage.setItem('token', token)
+            dispatch({
                 type: REGISTER_SUCCESS,
-                payload: data.token
+                payload: token
             })
-            : dispatch({
+            await loadUser()
+        } else {
+            dispatch({
                 type: REGISTER_FAIL,
-                payload: { error: data.error, errorCode: data.code }
+                payload: { error: error, errorCode: code }
             })
+        }
     }
 
     // Login user
     const loginUser = async (user) => {
-        const { data } = await AuthService.authUser(user)
+        const { data: { success, token = '', error = '', code = 0 } } = await AuthService.authUser(user)
 
-        data.success
-            ? dispatch({
+        if (success) {
+            localStorage.setItem('token', token)
+            dispatch({
                 type: LOGIN_SUCCESS,
-                payload: data.token
+                payload: token
             })
-            : dispatch({
+            await loadUser()
+        } else {
+            dispatch({
                 type: LOGIN_FAIL,
-                payload: { error: data.error, errorCode: data.code }
+                payload: { error: error, errorCode: code }
             })
+        }
     }
 
     // Logout user
-    const logoutUser = () => {
+    const logoutUser = async () => {
+        await AuthService.logoutUser()
+
         dispatch({
             type: LOGOUT
         })

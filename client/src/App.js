@@ -9,6 +9,7 @@ import About from "./components/pages/About"
 import Registration from "./components/registration/Registration"
 import Login from "./components/login/Login"
 import Alert from "./components/alert/Alert"
+import PrivateRoute from "./components/routing/PrivateRoute"
 
 function App() {
     return (
@@ -17,7 +18,7 @@ function App() {
             <div className="container">
                 <Alert />
                 <Switch>
-                    <Route exact path='/' component={Home} />
+                    <PrivateRoute exact path='/' component={Home} />
                     <Route exact path='/about' component={About} />
                     <Route exact path="/registration" component={Registration} />
                     <Route exact path="/login" component={Login} />

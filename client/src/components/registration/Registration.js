@@ -2,9 +2,9 @@ import React, { useContext, useState, useEffect } from "react"
 import alertContext from "../../context/alert/alertContext"
 import authContext from "../../context/auth/authContext"
 
-const Registration = () => {
+const Registration = (props) => {
     const { setAlert } = useContext(alertContext)
-    const { register, error, errorCode, clearErrors } = useContext(authContext)
+    const { register, error, errorCode, clearErrors, isAuthenticated } = useContext(authContext)
 
     const [user, setUser] = useState({
         name: '',
@@ -14,11 +14,15 @@ const Registration = () => {
     })
 
     useEffect(() => {
+        if (isAuthenticated) {
+            props.history.push('/')
+        }
+
         if (errorCode > 0) {
             setAlert(error, 'danger')
             clearErrors()
         }
-    }, [error])
+    }, [error, isAuthenticated, props.history])
 
     const { name, email, password, password2 } = user
 
