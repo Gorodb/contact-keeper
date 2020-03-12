@@ -37,19 +37,17 @@ const Login = (props) => {
 
     return (
         <div className='form-container'>
-            <h1>
-                Account <span className="text-primary">login</span>
-            </h1>
+            <h1>Вход</h1>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input type="email" name="email" value={email} onChange={onchange}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Пароль</label>
                     <input type="password" name="password" value={password} onChange={onchange}/>
                 </div>
-                <input type="submit" value="Login" className="btn btn-primary btn-block"/>
+                <input type="submit" value="Войти" className="btn btn-primary btn-block"/>
             </form>
         </div>
     )

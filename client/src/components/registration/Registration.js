@@ -46,7 +46,7 @@ const Registration = (props) => {
             </h1>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Имя</label>
                     <input type="text" name="name" value={name} onChange={onchange}/>
                 </div>
                 <div className="form-group">
@@ -54,11 +54,11 @@ const Registration = (props) => {
                     <input type="email" required name="email" value={email} onChange={onchange}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Пароль</label>
                     <input type="password" required minLength={6} name="password" value={password} onChange={onchange}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password2">Confirm password</label>
+                    <label htmlFor="password2">Подтверждение пароля</label>
                     <input type="password" name="password2" value={password2} onChange={onchange}/>
                 </div>
                 <input type="submit" required value="Register" className="btn btn-primary btn-block"/>

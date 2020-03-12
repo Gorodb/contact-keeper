@@ -6,7 +6,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    CLEAR_DB
 } from '../types'
 
 export default (state, action) => {
@@ -55,6 +56,16 @@ export default (state, action) => {
                 ...state,
                 error: null,
                 errorCode: 0
+            }
+        case CLEAR_DB:
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                loading: false,
+                user: null,
+                errorCode: 0,
+                CLEAR_DB
             }
         default:
             return state

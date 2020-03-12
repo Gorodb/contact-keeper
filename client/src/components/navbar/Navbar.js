@@ -2,12 +2,15 @@ import React, {Fragment, useContext} from "react"
 import { Link } from "react-router-dom"
 import PropTypes from 'prop-types'
 import authContext from "../../context/auth/authContext"
+import contactContext from "../../context/contact/contactContext"
 
 const Navbar = ({ title, icon }) => {
     const { isAuthenticated, logoutUser, user } = useContext(authContext)
+    const { clearContacts } = useContext(contactContext)
 
     const onLogout = () => {
         logoutUser()
+        clearContacts()
     }
 
     const authLinks = (
@@ -15,14 +18,11 @@ const Navbar = ({ title, icon }) => {
             <h3>Hello { user && user.name }</h3>
             <ul>
                 <li>
-                    <Link to={'/'}>Home</Link>
-                </li>
-                <li>
-                    <Link to={'/about'}>About</Link>
+                    <Link to={'/about'}>О приложении</Link>
                 </li>
                 <li>
                     <a onClick={onLogout} href="#">
-                        <i className="fas fa-sign-out-alt" /> <span className="hide-sm">Logout</span>
+                        <i className="fas fa-sign-out-alt" /> <span className="hide-sm">Выход</span>
                     </a>
                 </li>
             </ul>
@@ -32,10 +32,10 @@ const Navbar = ({ title, icon }) => {
         <Fragment>
             <ul>
                 <li>
-                    <Link to={'/registration'}>Registration</Link>
+                    <Link to={'/registration'}>Зарегистрироваться</Link>
                 </li>
                 <li>
-                    <Link to={'/login'}>Login</Link>
+                    <Link to={'/login'}>Войти</Link>
                 </li>
             </ul>
         </Fragment>
@@ -43,9 +43,7 @@ const Navbar = ({ title, icon }) => {
 
     const preloader = () => {
         if (isAuthenticated === null) {
-            return (
-                <div>loading...</div>
-            )
+            return authLinks
         }
     }
 
@@ -54,7 +52,7 @@ const Navbar = ({ title, icon }) => {
             <h1>
                 <Link to={'/'}><i className={icon} /> {title}</Link>
             </h1>
-                {isAuthenticated === null ? preloader : isAuthenticated ? authLinks : guestLinks}
+                {isAuthenticated === null ? preloader() : isAuthenticated ? authLinks : guestLinks}
         </div>
     )
 }

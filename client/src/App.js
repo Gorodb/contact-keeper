@@ -10,6 +10,7 @@ import Registration from "./components/registration/Registration"
 import Login from "./components/login/Login"
 import Alert from "./components/alert/Alert"
 import PrivateRoute from "./components/routing/PrivateRoute"
+import ClearDb from "./components/clearDb/ClearDb"
 
 function App() {
     return (
@@ -19,9 +20,10 @@ function App() {
                 <Alert />
                 <Switch>
                     <PrivateRoute exact path='/' component={Home} />
-                    <Route exact path='/about' component={About} />
+                    <PrivateRoute exact path='/about' component={About} />
                     <Route exact path="/registration" component={Registration} />
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/clear" component={ClearDb} />
                 </Switch>
             </div>
         </Router>

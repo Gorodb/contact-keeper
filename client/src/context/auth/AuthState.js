@@ -11,7 +11,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    CLEAR_DB
 } from '../types'
 
 const AuthState = props => {
@@ -42,9 +43,7 @@ const AuthState = props => {
                     payload: { error: error, errorCode: code }
                 })
         } else {
-            dispatch({
-                type: LOGOUT
-            })
+            dispatch({ type: LOGOUT })
         }
     }
 
@@ -90,16 +89,19 @@ const AuthState = props => {
     const logoutUser = async () => {
         await AuthService.logoutUser()
 
-        dispatch({
-            type: LOGOUT
-        })
+        dispatch({ type: LOGOUT })
     }
 
     // Clear errors
     const clearErrors = () => {
-        dispatch({
-            type: CLEAR_ERRORS
-        })
+        dispatch({ type: CLEAR_ERRORS })
+    }
+
+    const clearDb = async () => {
+        const { data: { success = false } } = await AuthService.clearDb()
+        if (success) {
+            dispatch({ type: CLEAR_DB })
+        }
     }
 
     return (
@@ -115,7 +117,8 @@ const AuthState = props => {
                 loadUser,
                 loginUser,
                 logoutUser,
-                clearErrors
+                clearErrors,
+                clearDb
             }}>
             {props.children}
         </AuthContext.Provider>

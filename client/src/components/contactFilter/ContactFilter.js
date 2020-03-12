@@ -17,7 +17,8 @@ const ContactFilter = () => {
 
     return (
         <form>
-            <input ref={text} type="text" placeholder="Filter contacts..." onChange={onChange} />
+            <h2 className="text-primary">Список контактов</h2>
+            <input ref={text} type="text" placeholder="Введите имя или email" onChange={onChange} />
         </form>
     )
 }

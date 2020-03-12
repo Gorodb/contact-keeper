@@ -17,6 +17,10 @@ class AuthService extends ApiService {
         return this._getRequest(`/api/auth/me`)
     }
 
+    static clearDb () {
+        return this._postRequest(`/api/secret/clear`)
+    }
+
     static setToken (token) {
         this._setAuthToken(token)
     }
