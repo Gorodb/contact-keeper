@@ -7,7 +7,7 @@
     "start": "node server.js",
     "run-server": "node server.js",
     "dev": "nodemon server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false node server.js"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false"
   },
   "author": "Ramis Vakazov",
   "license": "ISC",

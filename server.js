@@ -16,8 +16,11 @@ const http = require('http')
 dotenv.config({ path: './config/config.env' })
 
 const app = express()
+
 app.set('port', (process.env.PORT || 5000))
+
 connectDb()
+
 app.use(express.json({ extended: false }))
 
 // dev logging middleware
