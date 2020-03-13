@@ -5,11 +5,8 @@
   "main": "server.js",
   "scripts": {
     "run-server": "node server.js",
-    "dev-server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "client-install": "yarn install --prefix client",
-    "dev": "concurrently \"yarn dev-server\" \"yarn client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "dev": "nodemon server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false node server.js"
   },
   "author": "Ramis Vakazov",
   "license": "ISC",
